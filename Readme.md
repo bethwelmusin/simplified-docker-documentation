@@ -55,7 +55,7 @@ RUN — running file with all the requirements file
 
 EXPOSE — Set a specific port to listen by Docker Container.
 
-ADD /COPY .. — uses for copy all files.
+COPY .. — uses for copy all files.
 
 
 
