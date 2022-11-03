@@ -20,26 +20,83 @@ run applications made up of multiple containers. For example, suppose you had an
 
 
 
-<!-- step by step to dockerize a project -->
+step by step to dockerize a project
 
 
 1. first step is to install docker in your machine
+The most important step to be successful is to actually install Docker. The Docker website has getting started guides for Mac, Windows, and Linux.
+
+    Linux - https://docs.docker.com/linux/started/
+    Mac - http://docs.docker.com/mac/started/
+    Windows - http://docs.docker.com/windows/started/
 
 
-2. create a project 
 
-3. confirm if docker is installed , run docker version in your command line
+2. create a project or clone an existing application
 
- <!-- creating docker image -->
 
-4. create a dockerfile in your application called "Dockerfile"
+3. confirm if docker is installed , run "docker version" in your command line
+
+
+
+ creating docker image
+
+4. create a dockerfile in your project called "Dockerfile"
 
 5. To your Dockerfile, add:
 
+FROM — image name.
+
+WORKDIR - project directory
+
+COPY - requirements file
+
+RUN — running file with all the requirements file
+
+EXPOSE — Set a specific port to listen by Docker Container.
+
+ADD /COPY .. — uses for copy all files.
 
 
 
- 
+ i.e 
+
+dockerfile for django application
+
+FROM python:3.6
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+COPY . .
+
+EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+
+building image
+
+Now we need to build our Docker image and run it. This can be done by the following command :
+
+to build image:
+
+sudo docker build -t image_name .
+
+
+     to see if image exit use and you can see all your images.
+
+sudo docker images
+
+
+running docker application
+
+to run docker application use:
+
+sudo docker run -p 8000:8000 image_name
 
 
 
